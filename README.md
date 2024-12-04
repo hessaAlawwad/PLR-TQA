@@ -84,7 +84,6 @@ data/ ├── train/ ├── validation/ ├── test/
 
 ### **Training**
 To fine-tune Llama-2:
-```bash
 python fine_tune_llama2_with_rag.py \
     --data_dir ./data \
     --output_dir ./outputs \
@@ -93,9 +92,35 @@ python fine_tune_llama2_with_rag.py \
     --lr 2e-4
 
 ### **Evaluation**
-
 Evaluate the fine-tuned model on the test set:
-```bash
 python evaluate.py \
     --model_dir ./outputs \
     --test_data ./data/test
+
+---
+
+## **Results**
+
+### **Model Accuracy**
+- **Validation Accuracy:** 82.40%
+- **Test Accuracy:** 84.24%
+
+### **Comparison with Baselines**
+This approach outperforms state-of-the-art baselines, with significant improvements in accuracy for non-diagram multiple-choice questions.
+
+---
+
+## **Repository Structure**
+├── data/ # Dataset files ├── models/ # Pre-trained and fine-tuned models ├── retrieval/ # RAG-related components ├── outputs/ # Model outputs and logs ├── cleaned_fine_tune_llama2_with_rag.py # Main training script ├── evaluate.py # Optional evaluation script ├── utils.py # Utility functions └── requirements.txt # Python dependencies
+
+
+---
+
+## **Acknowledgments**
+This repository is based on the work of **Hessa A. Alawwad et al.** presented in *"Enhancing Textbook Question Answering with Large Language Models and Retrieval-Augmented Generation"*. Special thanks to the Hugging Face, PyTorch, and Pinecone communities.
+
+---
+
+## **License**
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
