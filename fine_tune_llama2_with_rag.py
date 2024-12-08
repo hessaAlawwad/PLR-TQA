@@ -339,6 +339,6 @@ tokenizer.pad_token = tokenizer.eos_token
 tokenizer.padding_side = "right"
 
 # Fine-tuned model name
-new_model = "llama-2-7b-tqa-fullP-NEFTune"
+new_model = "Hessa/llama-2-7b-tqa-collator"
 model.push_to_hub(new_model, max_shard_size='2GB')
 tokenizer.push_to_hub(new_model)
