@@ -79,15 +79,10 @@ train_dataset_shuffled = train_dataset.shuffle(seed=42)
 
 train_df = pd.DataFrame(train_dataset)
 
-val_dataset = load_dataset("Hessa/tqa_test_fullContext", split="test")
+val_dataset = load_dataset("Hessa/tqa_val_fullContext", split="test")
 val_dataset_shuffled = val_dataset.shuffle(seed=42)
 
 val_df = pd.DataFrame(val_dataset)
-
-val_dataset2 = load_dataset("Hessa/tqa_test_3p_reranked", split="test")
-val_dataset_shuffled2 = val_dataset2.shuffle(seed=42)
-
-val_df2 = pd.DataFrame(val_dataset2)
 
 val_df.to_csv("/content/test_df_full_3p.csv", index=False)
 
