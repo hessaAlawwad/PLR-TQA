@@ -6,7 +6,7 @@ This repository contains the implementation for the paper *"Enhancing Textbook Q
 
 ## Paper Link
 
-You can find the full paper here: [**Link to the Paper**](#)  
+You can find the full paper here:
 ([PLR-TQA](https://www.sciencedirect.com/science/article/pii/S0031320324010835))
 ---
 
