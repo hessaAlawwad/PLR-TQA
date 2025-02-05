@@ -4,6 +4,10 @@
 
 This repository contains the implementation for the paper *"Enhancing Textbook Question Answering Task with Large Language Models and Retrieval Augmented Generation"* by Hessa A. Alawwad et al. The work focuses on improving the Textbook Question Answering (TQA) task using the Pre-trained LLM, Llama-2, fine-tuned with supervised learning and enhanced with Retrieval-Augmented Generation (RAG) techniques.
 
+## Paper Link
+
+You can find the full paper here: [**Link to the Paper**](#)  
+*([Insert the actual URL where the paper is hosted](https://www.sciencedirect.com/science/article/pii/S0031320324010835))*
 ---
 
 ## **Table of Contents**
@@ -118,6 +122,14 @@ This approach outperforms state-of-the-art baselines, with significant improveme
 
 ## **Acknowledgments**
 This repository is based on the work of **Hessa A. Alawwad et al.** presented in *"Enhancing Textbook Question Answering with Large Language Models and Retrieval-Augmented Generation"*. Special thanks to the Hugging Face, PyTorch, and Pinecone communities.
+
+---
+
+
+## Citation
+
+If you use this code or the methodology in your work, please cite our paper as follows:
+@article{alawwad2025enhancing, title={Enhancing textual textbook question answering with large language models and retrieval augmented generation}, author={Alawwad, Hessa A and Alhothali, Areej and Naseem, Usman and Alkhathlan, Ali and Jamal, Amani}, journal={Pattern Recognition}, pages={111332}, year={2025}, publisher={Elsevier} }
 
 ---
 
