@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TQA Evaluation Methods Timeline</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 40px;
+            font-size: 1.1em;
+        }
+
+        .timeline {
+            position: relative;
+            margin: 40px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, #3498db, #9b59b6, #e74c3c);
+            border-radius: 2px;
+        }
+
+        .era-label {
+            text-align: center;
+            margin: 60px 0 40px;
+            position: relative;
+        }
+
+        .era-label h2 {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.3em;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            transform: translateY(10px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin: 40px 0;
+            animation: fadeIn 1s ease forwards;
+            opacity: 0;
+        }
+
+        .timeline-item:nth-child(odd) .content {
+            margin-left: calc(50% + 40px);
+        }
+
+        .timeline-item:nth-child(even) .content {
+            margin-right: calc(50% + 40px);
+            text-align: right;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: white;
+            border: 4px solid;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover .timeline-marker {
+            width: 24px;
+            height: 24px;
+            top: 18px;
+        }
+
+        .baseline .timeline-marker { border-color: #3498db; }
+        .graph .timeline-marker { border-color: #9b59b6; }
+        .transformer .timeline-marker { border-color: #e74c3c; }
+
+        .content {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .baseline .content { border-left-color: #3498db; }
+        .graph .content { border-left-color: #9b59b6; }
+        .transformer .content { border-left-color: #e74c3c; }
+
+        .content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .year {
+            font-size: 1.8em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .method-name {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #34495e;
+        }
+
+        .methodology {
+            margin-bottom: 15px;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .limitations {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid #e74c3c;
+            font-size: 0.95em;
+            color: #666;
+        }
+
+        .limitations strong {
+            color: #e74c3c;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .stats-section {
+            margin-top: 60px;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            padding: 30px;
+            border-radius: 15px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #667eea;
+            display: block;
+        }
+
+        .stat-label {
+            color: #666;
+            margin-top: 5px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .timeline-item:nth-child(1) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.4s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.6s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.8s; }
+        .timeline-item:nth-child(5) { animation-delay: 1.0s; }
+        .timeline-item:nth-child(6) { animation-delay: 1.2s; }
+        .timeline-item:nth-child(7) { animation-delay: 1.4s; }
+        .timeline-item:nth-child(8) { animation-delay: 1.6s; }
+
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-marker {
+                left: 30px;
+            }
+
+            .timeline-item:nth-child(odd) .content,
+            .timeline-item:nth-child(even) .content {
+                margin-left: 70px;
+                margin-right: 0;
+                text-align: left;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Evolution of TQA Evaluation Methods</h1>
+        <p class="subtitle">From Early Baselines to Modern Transformer Approaches (2017-2024)</p>
+
+        <div class="timeline">
+            <!-- Early Baselines Era -->
+            <div class="era-label">
+                <h2>📊 Early Baselines & Graph Methods Era</h2>
+            </div>
+
+            <div class="timeline-item baseline">
+                <div class="timeline-marker"></div>
+                <div class="content">
+                    <div class="year">2017</div>
+                    <div class="method-name">MemN (Kembhavi et al.)</div>
+                    <div class="methodology">
+                        <strong>Core Innovation:</strong> Introduced the TQA Dataset with hierarchical memory networks and IR approach for lesson-relevant paragraph selection.
+                    </div>
+                    <div class="limitations">
+                        <strong>Key Limitations:</strong>
+                        Lesson-constrained approach with modest baseline accuracy (34%). Did not address the "out-of-domain lesson" problem.
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item graph">
+                <div class="timeline-marker"></div>
+                <div class="content">
+                    <div class="year">2018</div>
+                    <div class="method-name">IGMN (Li et al.)</div>
+                    <div class="methodology">
+                        <strong>Core Innovation:</strong> Graph-based reasoning focused on essay-level contradictions. Constructed Contradiction Entity-Relationship Graph (CERG) to inform memory networks.
+                    </div>
+                    <div class="limitations">
+                        <strong>Key Limitations:</strong>
+                        Complex and brittle graph construction. Limited performance gains (41% accuracy). Focused heavily on contradiction - a narrow aspect of TQA.
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item graph">
+                <div class="timeline-marker"></div>
+                <div class="content">
+                    <div class="year">2019</div>
+                    <div class="method-name">F-GCN (Kim et al.)</div>
+                    <div class="methodology">
+                        <strong>Core Innovation:</strong> Multimodal context graphs using TF-IDF for initial retrieval, then constructing multimodal graphs with Graph Convolutional Networks for feature fusion.
+                    </div>
+                    <div class="limitations">
+                        <strong>Key Limitations:</strong>
+                        Reliance on sparse retrieval - TF-IDF was a bottleneck, unable to capture deep semantic meaning in the initial retrieval step.
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item graph">
+                <div class="timeline-marker"></div>
+                <div class="content">
+                    <div class="year">2021</div>
+                    <div class="method-name">RAFR (Ma et al.)</div>
+                    <div class="methodology">
+                        <strong>Core Innovation:</strong> Fine-grained relation awareness, reasoning over nodes of a diagram graph, focusing on textual relationships within the diagram.
+                    </div>
+                    <div class="limitations">
+                        <strong>Key Limitations:</strong>
+                        Visually limited - primarily considered text on diagrams, potentially ignoring crucial non-textual visual information and broader lesson context.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transformer Era -->
+            <div class="era-label">
+                <h2>🚀 The Pre-training Era: Transformer-Based Approaches</h2>
+            </div>
+
+            <div class="timeline-item transformer">
+                <div class="timeline-marker"></div>
+                <div class="content">
+                    <div class="year">2020</div>
+                    <div class="method-name">ISAAQ (Gomez-Perez & Ortega)</div>
+                    <div class="methodology">
+                        <strong>Core Innovation:</strong> Transformer-based solver - one of the first to heavily leverage transformer LMs. Used multiple retrievers (IR, NSP, NN) and an ensemble of solvers.
+                    </div>
+                    <div class="limitations">
+                        <strong>Key Limitations:</strong>
+                        Generic retrieval - retrieval components were not jointly trained or optimized for the solver. Complex ensemble approach serving as a key performance benchmark.
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item transformer">
+                <div class="timeline-marker"></div>
+                <div class="content">
+                    <div class="year">2022</div>
+                    <div class="method-name">WSTQ (Ma et al.)</div>
+                    <div class="methodology">
+                        <strong>Core Innovation:</strong> Weakly supervised learning using RoBERTa for text and CNNs for diagrams. Applied weakly supervised objectives for text matching and relation detection.
+                    </div>
+                    <div class="limitations">
+                        <strong>Key Limitations:</strong>
+                        Focus on generator - innovations were primarily in training the generator/reader, with less focus on optimizing the initial retrieval step itself.
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item transformer">
+                <div class="timeline-marker"></div>
+                <div class="content">
+                    <div class="year">2023</div>
+                    <div class="method-name">MoCA (Xu et al.)</div>
+                    <div class="methodology">
+                        <strong>Core Innovation:</strong> Domain pre-training & cross-attention. Introduced domain pre-training for RoBERTa on TQA corpus and used cross-attention for fusing text and vision transformer features.
+                    </div>
+                    <div class="limitations">
+                        <strong>Key Limitations:</strong>
+                        High-performing baseline achieving SOTA at the time by focusing on better feature fusion. However, initial retrieval of context was still a separate, non-optimized step.
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item transformer">
+                <div class="timeline-marker"></div>
+                <div class="content">
+                    <div class="year">2024</div>
+                    <div class="method-name">MRHF (Zhu et al.)</div>
+                    <div class="methodology">
+                        <strong>Core Innovation:</strong> Multi-stage retrieval & hierarchical fusion. Key baseline for our work using a hybrid retrieval pipeline (sparse → dense bi-encoder → cross-encoder) and mixture-of-experts architecture.
+                    </div>
+                    <div class="limitations">
+                        <strong>Key Limitations:</strong>
+                        Sophisticated but generic retrieval representing SOTA in complex, non-utility-aware retrieval. Multi-stage reranking is computationally heavy and still optimized for generic relevance, not downstream utility.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-section">
+            <h2 style="text-align: center; margin-bottom: 20px; color: #2c3e50;">Retrieval Methodology Distribution</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number">58%</span>
+                    <div class="stat-label">Statistical Methods<br>(Keyword-based: TF-IDF, BM25)</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">33%</span>
+                    <div class="stat-label">Transformer-Based Dense<br>(Semantic embeddings: S-BERT)</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">8%</span>
+                    <div class="stat-label">Search Engine<br>(Apache Solr systems)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add click interactions
+        document.querySelectorAll('.content').forEach(content => {
+            content.addEventListener('click', function() {
+                this.style.transform = 'scale(1.02)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+            });
+        });
+
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        document.querySelectorAll('.timeline-item').forEach(item => {
+            observer.observe(item);
+        });
+    </script>
+</body>
+</html>
