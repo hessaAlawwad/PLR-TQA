@@ -24,7 +24,7 @@ tokenizer.pad_token = tokenizer.eos_token
 tokenizer.padding_side = "right"
 
 # ------------------- GENERATION FUNCTION ------------------- #
-def generate_stable_response(prompt, max_new_tokens=100):
+def generate_response(prompt, max_new_tokens=100):
     inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
     outputs = model.generate(
         **inputs,
